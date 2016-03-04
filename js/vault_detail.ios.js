@@ -45,17 +45,6 @@ class VaultDetail extends Component {
           <Text style={styles.item}> ID : {vault.id}</Text>
           <Text style={styles.item}> Name : {vault.name}</Text>
           <Text style={styles.item}> Address : {vault.addr}</Text>
-          <Text style={styles.atBottom}>
-            {(
-              () => {
-                if(vault.is_empty){
-                  return "This vault is empty."
-                }else{
-                  return "N items are safe inside this vault."
-                }
-              }
-            )()}
-          </Text>
         </View>
       );
     }
