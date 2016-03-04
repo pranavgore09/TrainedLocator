@@ -9,6 +9,12 @@ var AssetsCreateNav = require('./assets_create.ios')
 var VaultsNav = require('./vaults.ios')
 var VaultCreateNav = require('./vaults_create.ios')
 
+var DBEvents = require('react-native-db-models').DBEvents
+
+DBEvents.on("all", function() {
+  console.log('DB changed');
+})
+
 import React, {
   AppRegistry,
   Component,

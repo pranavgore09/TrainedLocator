@@ -17,41 +17,41 @@ import React, {
 
 var DB = require('./DB')
 
-class AssetDetail extends Component {
+class VaultDetail extends Component {
   componentWillMount() {
-    this.setState({"asset": false})
-    this.updateStateWithAssetInfo(this.props.id)
+    this.setState({"vault": false})
+    this.updateStateWithVaultInfo(this.props.id)
   }
-  updateStateWithAssetInfo(asset_id){
+  updateStateWithVaultInfo(vault_id){
     var that = this;
-    DB.assets.get_id(asset_id, function(data){
+    DB.vaults.get_id(vault_id, function(data){
       if(data.length == 1)
-        that.setState({'asset': data[0]})
+        that.setState({'vault': data[0]})
       else
         console.log('Error : multiple row with same id', data)
     })
   }
   render() {
-    if(!this.state.asset){
+    if(!this.state.vault){
       return (
         <View style={styles.container}>
-          <Text> Loading asset </Text>
+          <Text> Loading vault </Text>
         </View>
       );
     }else{
-      var asset = this.state.asset
+      var vault = this.state.vault
       return (
         <View style={styles.container}>
-          <Text style={styles.item}> ID : {asset.id}</Text>
-          <Text style={styles.item}> Name : {asset.name}</Text>
-          <Text style={styles.item}> Description : {asset.desc}</Text>
+          <Text style={styles.item}> ID : {vault.id}</Text>
+          <Text style={styles.item}> Name : {vault.name}</Text>
+          <Text style={styles.item}> Address : {vault.addr}</Text>
           <Text style={styles.atBottom}>
             {(
               () => {
-                if(asset.is_safe){
-                  return "This is safe in vault."
+                if(vault.is_empty){
+                  return "This vault is empty."
                 }else{
-                  return "Not yet safe. Quickly add it to safe."
+                  return "N items are safe inside this vault."
                 }
               }
             )()}
@@ -65,14 +65,14 @@ class AssetDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DBDDDE',
+    backgroundColor: '#FF5E3A',
     flexDirection: 'column',
     paddingTop: 64,
     alignItems: 'center',
   },
   item: {
     // flex: 1,
-    fontSize: 20
+    fontSize: 20,
   },
   atBottom: {
     flex:1,
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = AssetDetail
+module.exports = VaultDetail

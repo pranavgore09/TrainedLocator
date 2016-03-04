@@ -20,17 +20,17 @@ import React, {
 } from 'react-native';
 
 var dismissKeyboard = require('dismissKeyboard')
-var AssetsNav = require('./assets.ios')
-var AssetsCreateNav = require('./assets_create.ios')
+var VaultsNav = require('./vaults.ios')
+var VaultsCreateNav = require('./vaults_create.ios')
 
 var DB = require('./DB')
 
-class AssetsCreate extends Component {
+class VaultsCreate extends Component {
   constructor(props) {
     super(props)
     this.fields = {
       name: null,
-      desc: null
+      addr: null
     }
     this.state = {
       ...this.fields,
@@ -46,22 +46,22 @@ class AssetsCreate extends Component {
      ]
     );
   }
-  get_unique_asset_id(){
+  get_unique_vault_id(){
     var ts = Date.now();
-    return 'asset'+ts
+    return 'vault'+ts
   }
   _save(){
-    var id = this.get_unique_asset_id();
-    var asset_details = {
+    var id = this.get_unique_vault_id();
+    var vault_details = {
       'id': id,
       'name': this.fields.name,
-      'desc': this.fields.desc,
-      'is_safe': false
+      'addr': this.fields.addr,
+      'is_empty': true
     }
     var that = this;
-    DB.assets.add(asset_details, function(added_data){
+    DB.vaults.add(vault_details, function(added_data){
       if(!added_data){
-        console.log('Could not insert')
+        console.log('Could not insert into vaults', added_data, vault_details)
       }else{
         dismissKeyboard();
         that.props.navigator.popToTop();
@@ -82,9 +82,9 @@ class AssetsCreate extends Component {
           </TextInput>
           <TextInput
             style = { styles.input_box }
-            onChangeText={(text) => this.fields.desc = text}
-            value={this.state.desc}
-            placeholder={"Description"}
+            onChangeText={(text) => this.fields.addr = text}
+            value={this.state.addr}
+            placeholder={"Address"}
             placeholderTextColor="#FF2D55"
             editable={true}>
           </TextInput>
@@ -92,7 +92,7 @@ class AssetsCreate extends Component {
         <View style = {styles.button_container}>
           <TouchableHighlight onPress={this.save.bind(this)}>
             <View style = {styles.save_button}>
-             <Text style = {styles.save_text}>Save New Asset</Text>
+             <Text style = {styles.save_text}>Create New Vault</Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -141,4 +141,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = AssetsCreate
+module.exports = VaultsCreate

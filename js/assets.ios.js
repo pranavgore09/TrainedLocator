@@ -4,7 +4,7 @@
  */
 'use strict';
 var AssetDetailNav = require('./asset_detail.ios')
-
+var DB = require('./DB')
 import React, {
   AppRegistry,
   Component,
@@ -34,7 +34,7 @@ class Assets extends Component {
   }
   renderRow(rowData){
     return(
-      <TouchableHighlight onPress={this.gotoAssetDetail.bind(this, rowData.id)}>
+      <TouchableHighlight onPress={this.gotoAssetDetail.bind(this, rowData._id)}>
         <View style = {styles.row}>
           <Text style={styles.rowText}>{rowData.name}</Text>
         </View>
@@ -43,13 +43,13 @@ class Assets extends Component {
   }
   loadData(){
     var that = this;
-    AsyncStorage.getItem('assets', function(err, data){
-      if(!err){
-        var all_assets = JSON.parse(data || "[]")
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        that.setState({'dataSource': ds.cloneWithRows(all_assets), 'fetchData': false})
+    DB.assets.get_all(function(data){
+      console.log('assets', data)
+      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      if(data.totalrows == 0){
+        that.setState({'dataSource': ds.cloneWithRows([]), 'fetchData': false})
       }else{
-        console.log(err, data)
+        that.setState({'dataSource': ds.cloneWithRows(data.rows), 'fetchData': false})
       }
     })
   }
