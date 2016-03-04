@@ -28,17 +28,11 @@ class AssetsCreate extends Component {
     super(props)
     this.fields = {
       name: null,
-      description: null
+      desc: null
     }
     this.state = {
       ...this.fields,
     }
-  }
-  gotoAssetCreate() {
-    this.props.navigator.push({
-      title: "New Asset",
-      component: AssetsCreateNav
-    });
   }
   save(data) {
     var sv = this._save.bind(this)
@@ -50,6 +44,10 @@ class AssetsCreate extends Component {
      ]
     );
   }
+  get_unique_asset_id(){
+    var ts = Date.now();
+    return 'asset'+ts
+  }
   _save(){
     var cb = function(err){
       if(err){
@@ -57,35 +55,55 @@ class AssetsCreate extends Component {
       }else{
         dismissKeyboard();
         this.props.navigator.popToTop()
-        // this.props.navigator.replacePreviousAndPop({
-        //   title: "Assets",
-        //   component: AssetsNav,
-        //   rightButtonTitle: "New",
-        //   onRightButtonPress: () => this.gotoAssetCreate(),
-        // });
       }
     }
-    AsyncStorage.setItem("item", JSON.stringify({'id': 'a4', 'name': this.fields.name}), cb.bind(this));
-    AsyncStorage.setItem("assets_modified", '1', cb.bind(this));
+    var id = this.get_unique_asset_id();
+    var asset_details = {
+      'id': id,
+      'name': this.fields.name,
+      'desc': this.fields.desc,
+      'is_safe': false
+    }
+    var that = this;
+    AsyncStorage.getItem("assets", function(err, data){
+      if(data){
+        var all = JSON.parse(data);
+      }else{
+        var all = []
+      }
+      all.push(asset_details);
+      AsyncStorage.setItem("assets", JSON.stringify(all), cb.bind(that));
+    });
+    AsyncStorage.setItem(id, JSON.stringify(asset_details));
   }
   render() {
     return (
       <View style = {styles.container}>
-        <View>
-          <Text> Asset Name :</Text>
+        <View style = {styles.text_box_container }>
           <TextInput
-            style = {{ borderColor: 'black', borderWidth: 5, flex: 1, height: 30, width: 100, lineHeight: 10 }}
+            style = {styles.input_box }
             onChangeText={(text) => this.fields.name = text}
             value={this.state.name}
-            placeholder={"placeholder"}
+            placeholder={"Name"}
+            placeholderTextColor="#FF2D55"
+            editable={true}>
+          </TextInput>
+          <TextInput
+            style = { styles.input_box }
+            onChangeText={(text) => this.fields.desc = text}
+            value={this.state.desc}
+            placeholder={"Description"}
+            placeholderTextColor="#FF2D55"
             editable={true}>
           </TextInput>
         </View>
-        <TouchableHighlight onPress={this.save.bind(this)} style = {styles.save_button}>
-          <View style = {styles.save_button}>
-           <Text style = {styles.save_text}>Save New Asset</Text>
-          </View>
-        </TouchableHighlight>
+        <View style = {styles.button_container}>
+          <TouchableHighlight onPress={this.save.bind(this)}>
+            <View style = {styles.save_button}>
+             <Text style = {styles.save_text}>Save New Asset</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -94,13 +112,40 @@ class AssetsCreate extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#5856D6',
+    // alignItems: 'center',
+    // flexDirection: 'column',
+    // justifyContent: 'space-around',
+    // backgroundColor: '#C7C7CC',
+  },
+  text_box_container: {
+    flex: 1,
+    flexDirection: 'row',
+    // alignItems: 'center',
+    paddingTop: 64,
+    flexWrap: 'wrap'
+  },
+  input_box: {
+    borderWidth: 1,
+    borderColor: '#5856D6',
+    height: 50,
+    width: 360,
+    fontWeight: "100",
+    margin: 5
+  },
+  button_container: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   save_text: {
     fontSize: 35,
+  },
+  save_button: {
+    borderWidth: 3,
+    borderColor: '#5856D6',
+    borderRadius: 4,
+    backgroundColor: '#D1EEFC'
   }
 });
 

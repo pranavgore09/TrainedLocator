@@ -43,16 +43,11 @@ class Assets extends Component {
   }
   loadData(){
     var that = this;
-    var asset_list = [
-      {'id': 'a1', 'name': 'Gold Chain'},
-      {'id': 'a3', 'name': 'Property X Document'},
-    ]
-    AsyncStorage.getItem('item', function(err, data){
+    AsyncStorage.getItem('assets', function(err, data){
       if(!err){
-        data = JSON.parse(data)
-        asset_list.push(data)
+        var all_assets = JSON.parse(data || "[]")
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        that.setState({'dataSource': ds.cloneWithRows(asset_list), 'fetchData': false})
+        that.setState({'dataSource': ds.cloneWithRows(all_assets), 'fetchData': false})
       }else{
         console.log(err, data)
       }
@@ -62,26 +57,41 @@ class Assets extends Component {
     if(this.state.fetchData){
       this.loadData()
       return(
-        <View>
-          <Text> Initializing list </Text>
+        <View style={styles.informative_box}>
+          <Text style={styles.informative_messae}> Initializing list </Text>
         </View>
         )
+    }
+    if(this.state.dataSource.getRowCount() == 0){
+      return(
+          <View style={styles.informative_box}>
+            <Text style={styles.informative_messae}>Create assets by tapping 'New' button.</Text>
+          </View>
+        );
     }
     return (
         <ListView
           dataSource = {this.state.dataSource}
           renderRow = {this.renderRow.bind(this)}
-          style={{top:20}}/>
+          style={{backgroundColor:'#FF5B37', paddingTop: 64}}/>
     );
   }
 }
 
 const styles = StyleSheet.create({
   row: {
-    backgroundColor: '#5856D6',
+    borderBottomWidth: 2,
+    borderBottomColor: '#55EFCB',
   },
   rowText: {
     fontSize: 35,
+  },
+  informative_box:{
+    paddingTop: 100,
+    padding: 60
+  },
+  informative_messae: {
+    fontSize: 30
   }
 });
 

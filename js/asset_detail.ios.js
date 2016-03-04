@@ -12,28 +12,50 @@ import React, {
   Text,
   View,
   TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 class AssetDetail extends Component {
   componentWillMount() {
-    this.asset = this.fetchAsset(this.props.id)
+    this.setState({"asset": false})
+    this.updateStateWithAssetInfo(this.props.id)
   }
-  fetchAsset(asset_id){
-    return {
-      'name': 'Gold Chain',
-      'description': '10 gm from PNG jwellers',
-      'current_valut': 'XYZ bank safe',
-      'is_safe': true
-    }
+  updateStateWithAssetInfo(asset_id){
+    var that = this;
+    AsyncStorage.getItem(asset_id, function(err, data){
+      if(!err){
+        that.setState({'asset': JSON.parse(data)})
+      }
+    });
   }
   render() {
-    return (
-      <View style={styles.container}>
-        <Text> ID : {this.props.id}</Text>
-        <Text> Name : {this.asset.name}</Text>
-        <Text> Description : {this.asset.description}</Text>
-      </View>
-    );
+    if(!this.state.asset){
+      return (
+        <View style={styles.container}>
+          <Text> Loading asset </Text>
+        </View>
+      );
+    }else{
+      var asset = this.state.asset
+      return (
+        <View style={styles.container}>
+          <Text style={styles.item}> ID : {asset.id}</Text>
+          <Text style={styles.item}> Name : {asset.name}</Text>
+          <Text style={styles.item}> Description : {asset.desc}</Text>
+          <Text style={styles.atBottom}>
+            {(
+              () => {
+                if(asset.is_safe){
+                  return "This is safe in vault."
+                }else{
+                  return "Not yet safe. Quickly add it to safe."
+                }
+              }
+            )()}
+          </Text>
+        </View>
+      );
+    }
   }
 }
 
@@ -42,9 +64,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#DBDDDE',
     flexDirection: 'column',
+    paddingTop: 64,
     alignItems: 'center',
-    justifyContent: 'center',
   },
+  item: {
+    // flex: 1,
+    fontSize: 20
+  },
+  atBottom: {
+    flex:1,
+    fontSize: 24,
+  }
 });
 
 module.exports = AssetDetail

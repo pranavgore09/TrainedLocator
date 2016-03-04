@@ -7,6 +7,7 @@ var AssetsNav = require('./assets.ios')
 var AssetsCreateNav = require('./assets_create.ios')
 
 var VaultsNav = require('./vaults.ios')
+var VaultCreateNav = require('./vaults_create.ios')
 
 import React, {
   AppRegistry,
@@ -37,6 +38,14 @@ class Home extends Component {
     this.props.navigator.push({
       title: "Vaults",
       component: VaultsNav,
+      rightButtonTitle: "New",
+      onRightButtonPress: () => this.gotoVaultCreate(),
+    });
+  }
+  gotoVaultCreate(){
+    this.props.navigator.push({
+      title: "New Vault",
+      component: VaultCreateNav
     });
   }
   render() {
@@ -49,7 +58,7 @@ class Home extends Component {
         </View>
 
         <View style = {styles.card}>
-          <TouchableHighlight onPress={this.gotoVaults}>
+          <TouchableHighlight onPress={() => this.gotoVaults()}>
           <Text style= {styles.cardText}> Vaults </Text>
           </TouchableHighlight>
         </View>
@@ -61,16 +70,20 @@ class Home extends Component {
 const styles = StyleSheet.create({
   home: {
     flex: 1,
-    backgroundColor: '#52EDC7',
+    backgroundColor: '#C7C7CC',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   card: {
-    backgroundColor: '#1AD6FD',
+    backgroundColor: '#FF5E3A',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 2,
+    borderRadius: 30,
+    width: 150,
+    height: 150,
+    justifyContent: 'center',
   },
   cardText: {
     fontSize: 25,
