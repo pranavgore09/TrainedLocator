@@ -53,23 +53,26 @@ class AssetDetail extends Component {
           <Text style={styles.item}> ID : {asset.id}</Text>
           <Text style={styles.item}> Name : {asset.name}</Text>
           <Text style={styles.item}> Description : {asset.desc}</Text>
-          <View>
+          <View style={styles.atBottom}>
             {(
               () => {
                 if(asset.is_safe){
                   return (
                     <View>
-                      <Text>This is safe in vault id = {asset.vault_id}</Text>
+                      <Text style={styles.infoText}>This is safe in vault id = {asset.vault_id}</Text>
                       <TouchableHighlight onPress={this.addToVault.bind(this, asset._id)}>
-                        <Text>Move to another vault</Text>
+                        <Text style={styles.infoButton}>Move to another vault</Text>
                       </TouchableHighlight>
                     </View>
                     )
                 }else{
                   return (
-                    <TouchableHighlight onPress={this.addToVault.bind(this, asset._id)}>
-                      <Text>Select and add to vault</Text>
-                    </TouchableHighlight>
+                    <View>
+                      <Text style={styles.infoTextDanger}>This asset is not safe</Text>
+                      <TouchableHighlight onPress={this.addToVault.bind(this, asset._id)}>
+                        <Text style={styles.infoButton}>Select and add to vault</Text>
+                      </TouchableHighlight>
+                    </View>
                     )
                 }
               }
@@ -86,15 +89,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#DBDDDE',
     flexDirection: 'column',
+    // flexWrap: 'wrap',
     paddingTop: 64,
-    alignItems: 'center',
+    // justifyContent: 'center',
   },
   item: {
     // flex: 1,
-    fontSize: 20
+    fontSize: 20,
+    margin: 20
   },
   atBottom: {
-    flex:1
+    margin: 20
+  },
+  infoText: {
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  infoButton: {
+    borderWidth: 2,
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  infoTextDanger: {
+    fontSize: 20,
+    color: 'red',
+    textAlign: 'center'
   }
 });
 

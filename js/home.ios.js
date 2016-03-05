@@ -56,17 +56,21 @@ class Home extends Component {
   }
   render() {
     return (
-      <View style = {styles.home}>
-        <View style = {styles.card}>
+      <View style={styles.container}>
+        <View style = {styles.home}>
           <TouchableHighlight onPress={() => this.gotoAssets()}>
-          <Text style= {styles.cardText}> Assets </Text>
+            <View style = {styles.card}>
+              <Text style= {styles.cardText}> Assets </Text>
+            </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight onPress={() => this.gotoVaults()}>
+            <View style = {styles.card}>
+              <Text style= {styles.cardText}> Vaults </Text>
+            </View>
           </TouchableHighlight>
         </View>
-
-        <View style = {styles.card}>
-          <TouchableHighlight onPress={() => this.gotoVaults()}>
-          <Text style= {styles.cardText}> Vaults </Text>
-          </TouchableHighlight>
+        <View style={styles.emptyBottomView}>
         </View>
       </View>
     );
@@ -74,25 +78,35 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    flexDirection: 'column'
+  },
   home: {
-    flex: 1,
+    flex: 3,
     backgroundColor: '#C7C7CC',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  emptyBottomView:{
+    flex:2,
+    backgroundColor: '#C7C7CC',
+  },  
   card: {
     backgroundColor: '#FF5E3A',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 2,
     borderRadius: 30,
+    overflow: 'hidden',
     width: 150,
     height: 150,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   cardText: {
     fontSize: 25,
+    textAlign: 'center'
   }
 });
 
