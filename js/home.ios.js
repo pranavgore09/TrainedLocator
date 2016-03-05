@@ -60,13 +60,13 @@ class Home extends Component {
         <View style = {styles.home}>
           <TouchableHighlight onPress={() => this.gotoAssets()}>
             <View style = {styles.card}>
-              <Text style= {styles.cardText}> Assets </Text>
+              <Text style= {[styles.cardText, styles.baseFont]}> Assets </Text>
             </View>
           </TouchableHighlight>
 
           <TouchableHighlight onPress={() => this.gotoVaults()}>
             <View style = {styles.card}>
-              <Text style= {styles.cardText}> Vaults </Text>
+              <Text style= {[styles.cardText, styles.baseFont]}> Vaults </Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 2,
     borderRadius: 30,
-    overflow: 'hidden',
     width: 150,
     height: 150,
     justifyContent: 'center'
@@ -107,6 +106,9 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 25,
     textAlign: 'center'
+  },
+  baseFont: {
+    fontFamily: 'DevanagariSangamMN'
   }
 });
 

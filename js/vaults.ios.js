@@ -36,7 +36,7 @@ class Vaults extends Component {
     return(
       <TouchableHighlight onPress={this.gotoVaultDetail.bind(this, rowData._id)}>
         <View style = {styles.row}>
-          <Text style={styles.rowText}>{rowData.name}</Text>
+          <Text style={[styles.rowText, styles.baseFont]}>{rowData.name}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
   },
   informative_messae: {
     fontSize: 30
+  },
+  baseFont: {
+    fontFamily: 'DevanagariSangamMN'
   }
 });
 

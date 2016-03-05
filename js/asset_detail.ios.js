@@ -59,7 +59,7 @@ class AssetDetail extends Component {
                 if(asset.is_safe){
                   return (
                     <View>
-                      <Text style={styles.infoText}>This is safe in vault id = {asset.vault_id}</Text>
+                      <Text style={[styles.infoText, styles.baseFont]}>This is safe in vault id = {asset.vault_id}</Text>
                       <TouchableHighlight onPress={this.addToVault.bind(this, asset._id)}>
                         <Text style={styles.infoButton}>Move to another vault</Text>
                       </TouchableHighlight>
@@ -68,7 +68,7 @@ class AssetDetail extends Component {
                 }else{
                   return (
                     <View>
-                      <Text style={styles.infoTextDanger}>This asset is not safe</Text>
+                      <Text style={[styles.infoTextDanger, styles.baseFont]}>This asset is not safe</Text>
                       <TouchableHighlight onPress={this.addToVault.bind(this, asset._id)}>
                         <Text style={styles.infoButton}>Select and add to vault</Text>
                       </TouchableHighlight>
@@ -89,14 +89,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#DBDDDE',
     flexDirection: 'column',
-    // flexWrap: 'wrap',
     paddingTop: 64,
-    // justifyContent: 'center',
   },
   item: {
     // flex: 1,
     fontSize: 20,
-    margin: 20
+    margin: 20,
+    fontFamily: 'DevanagariSangamMN'
   },
   atBottom: {
     margin: 20
@@ -114,6 +113,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'red',
     textAlign: 'center'
+  },
+  baseFont: {
+    fontFamily: 'DevanagariSangamMN'
   }
 });
 

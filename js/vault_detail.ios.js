@@ -57,15 +57,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF5E3A',
     flexDirection: 'column',
     paddingTop: 64,
-    alignItems: 'center',
   },
   item: {
-    // flex: 1,
+    margin: 20,
     fontSize: 20,
-  },
-  atBottom: {
-    flex:1,
-    fontSize: 24,
   }
 });
 
