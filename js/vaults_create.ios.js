@@ -105,21 +105,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // alignItems: 'center',
-    // flexDirection: 'column',
-    // justifyContent: 'space-around',
-    // backgroundColor: '#C7C7CC',
+    backgroundColor: '#E0F8D8'
   },
   text_box_container: {
     flex: 1,
     flexDirection: 'row',
-    // alignItems: 'center',
     paddingTop: 64,
     flexWrap: 'wrap'
   },
   input_box: {
     borderWidth: 1,
-    borderColor: '#5856D6',
+    borderColor: '#FF9500',
     height: 50,
     width: 360,
     fontWeight: "100",
@@ -135,9 +131,8 @@ const styles = StyleSheet.create({
   },
   save_button: {
     borderWidth: 3,
-    borderColor: '#5856D6',
-    borderRadius: 4,
-    backgroundColor: '#D1EEFC'
+    borderColor: '#FF9500',
+    borderRadius: 4
   }
 });
 

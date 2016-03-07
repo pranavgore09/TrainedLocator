@@ -87,13 +87,13 @@ class AssetDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DBDDDE',
+    backgroundColor: '#E0F8D8',
     flexDirection: 'column',
     paddingTop: 64,
   },
   item: {
     // flex: 1,
-    fontSize: 20,
+    fontSize: 24,
     margin: 20,
     fontFamily: 'DevanagariSangamMN'
   },
@@ -101,16 +101,16 @@ const styles = StyleSheet.create({
     margin: 20
   },
   infoText: {
-    fontSize: 20,
+    fontSize: 24,
     textAlign: 'center'
   },
   infoButton: {
     borderWidth: 2,
-    fontSize: 20,
+    fontSize: 24,
     textAlign: 'center'
   },
   infoTextDanger: {
-    fontSize: 20,
+    fontSize: 24,
     color: 'red',
     textAlign: 'center'
   },

@@ -84,15 +84,15 @@ const styles = StyleSheet.create({
   },
   home: {
     flex: 3,
-    backgroundColor: '#C7C7CC',
+    backgroundColor: '#E0F8D8',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   emptyBottomView:{
     flex:2,
-    backgroundColor: '#C7C7CC',
-  },  
+    backgroundColor: '#E0F8D8',
+  },
   card: {
     backgroundColor: '#FF5E3A',
     borderColor: 'black',

@@ -73,7 +73,7 @@ class Vaults extends Component {
         <ListView
           dataSource = {this.state.dataSource}
           renderRow = {this.renderRow.bind(this)}
-          style={{backgroundColor:'#FF5B37', paddingTop: 64}}/>
+          style={{backgroundColor:'#E0F8D8', paddingTop: 64}}/>
     );
   }
 }
@@ -81,7 +81,7 @@ class Vaults extends Component {
 const styles = StyleSheet.create({
   row: {
     borderBottomWidth: 2,
-    borderBottomColor: '#55EFCB',
+    borderBottomColor: '#FF5B37',
   },
   rowText: {
     fontSize: 35,

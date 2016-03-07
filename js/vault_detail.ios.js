@@ -54,13 +54,13 @@ class VaultDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FF5E3A',
+    backgroundColor: '#E0F8D8',
     flexDirection: 'column',
     paddingTop: 64,
   },
   item: {
     margin: 20,
-    fontSize: 20,
+    fontSize: 24,
   }
 });
 
